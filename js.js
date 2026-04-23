@@ -10,27 +10,41 @@ rl.question("Введите N и M: ", function(input) {
 
     let total = N;
     let empty = N;
-    let steps = 0;
+    let steps = 1;
 
     console.log("\nПошаговый процесс:");
 
-    while (empty > 0) {
-        if (empty >= M) {
-            let groups = Math.floor(empty / M);
-            let used = groups * M;
-
-            console.log("1 ".repeat(groups) + "-> шаг " + (steps + 1));
-            steps++;
-
-            console.log("0 ".repeat(used));
-
-            total += groups;
-            empty = empty - used + groups;
-        } else {
-            steps++;
-            console.log("1 -> шаг " + steps);
-            empty--;
+    // начальные банки
+    for (let i = 0; i < N; i++) {
+        process.stdout.write("1 ");
+        if ((i + 1) % M === 0) {
+            console.log();
         }
+    }
+    console.log("\n" + steps + " шаг");
+
+    // обмены
+    while (empty >= M) {
+        let groups = Math.floor(empty / M);
+        let used = groups * M;
+
+        for (let i = 0; i < used; i++) {
+            process.stdout.write("0 ");
+            if ((i + 1) % M === 0) {
+                console.log();
+            }
+        }
+
+        steps++;
+        console.log(steps + " шаг");
+
+        console.log("1 ".repeat(groups));
+
+        total += groups;
+        empty = empty - used + groups;
+
+        steps++;
+        console.log(steps + " шаг");
     }
 
     console.log("\nРезультат:");
