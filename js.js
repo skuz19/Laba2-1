@@ -5,31 +5,29 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-let lines = [];
+rl.question("Введите количество чисел: ", function(nStr) {
+    let N = parseInt(nStr);
 
-rl.on("line", (line) => {
-    lines.push(line);
-});
+    rl.question("Введите числа: ", function(line) {
+        let nums = line.split(" ");
 
-rl.on("close", () => {
-    let N = parseInt(lines[0]);          // количество чисел
-    let nums = lines[1].split(" ");      // <-- ВАЖНО
+        let sum = 0;
 
-    let sum = 0;
+        for (let i = 0; i < N; i++) {
+            let x = parseInt(nums[i]);
 
-    for (let i = 0; i < N; i++) {
-        let x = parseInt(nums[i]);
+            while (x > 0) {
+                let digit = x % 10;
 
-        while (x > 0) {
-            let digit = x % 10;
+                if (digit % 3 === 0) {
+                    sum += digit;
+                }
 
-            if (digit % 3 === 0) {
-                sum += digit;
+                x = Math.floor(x / 10);
             }
-
-            x = Math.floor(x / 10);
         }
-    }
 
-    console.log("Сумма цифр:", sum);
+        console.log("Сумма цифр:", sum);
+        rl.close();
+    });
 });
