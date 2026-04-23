@@ -2,26 +2,37 @@ N, M = map(int, input("Введите N и M: ").split())
 
 total = N
 empty = N
-steps = 0
+steps = 1
 
 print("\nПошаговый процесс:")
 
-while empty > 0:
-    if empty >= M:
-        groups = empty // M
-        used = groups * M
+# начальные банки
+for i in range(N):
+    print("1", end=" ")
+    if (i + 1) % M == 0:
+        print()
+print("\n{} шаг".format(steps))
 
-        print(" ".join(["1"] * groups), "-> шаг", steps + 1)
-        steps += 1
+# обмены
+while empty >= M:
+    groups = empty // M
+    used = groups * M
 
-        print(" ".join(["0"] * used))
+    for i in range(used):
+        print("0", end=" ")
+        if (i + 1) % M == 0:
+            print()
 
-        total += groups
-        empty = empty - used + groups
-    else:
-        steps += 1
-        print("1 -> шаг", steps)
-        empty -= 1
+    steps += 1
+    print(f"{steps} шаг")
+
+    print(" ".join(["1"] * groups))
+
+    total += groups
+    empty = empty - used + groups
+
+    steps += 1
+    print(f"{steps} шаг")
 
 print("\nРезультат:")
 print("Максимум выпито:", total)
