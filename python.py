@@ -2,7 +2,7 @@ N = int(input("Введите количество чисел: "))
 
 print("Введите числа:")
 
-nums = input().split()   # <-- ВАЖНО
+nums = input().split()
 
 sum = 0
 
