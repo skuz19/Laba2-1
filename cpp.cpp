@@ -6,35 +6,43 @@ int main() {
     cout << "Введите N и M: ";
     cin >> N >> M;
 
-    int total = N;   // всего выпито
-    int empty = N;   // пустые банки
-    int steps = 0;   // шаги
+    int total = N;
+    int empty = N;
+    int steps = 1; // начальный шаг
 
     cout << "\nПошаговый процесс:\n";
 
-    while (empty > 0) {
-        // если можем обменять
-        if (empty >= M) {
-            int groups = empty / M;  // сколько групп
-            int used = groups * M;
+    // начальные банки
+    for (int i = 0; i < N; i++) {
+        cout << "1 ";
+        if ((i + 1) % M == 0) cout << endl;
+    }
+    cout << endl << "1 шаг\n";
 
-            // вывод групп
-            for (int i = 0; i < groups; i++)
-                cout << "1 ";
-            cout << "-> шаг " << ++steps << endl;
+    // обмены
+    while (empty >= M) {
+        int groups = empty / M;
+        int used = groups * M;
 
-            // вывод использованных пустых
-            for (int i = 0; i < used; i++)
-                cout << "0 ";
-            cout << endl;
-
-            total += groups;
-            empty = empty - used + groups;
-        } else {
-            // остатки (финальные шаги)
-            cout << "1 -> шаг " << ++steps << endl;
-            empty--;
+        // показываем пустые
+        for (int i = 0; i < used; i++) {
+            cout << "0 ";
+            if ((i + 1) % M == 0) cout << endl;
         }
+
+        steps++;
+        cout << steps << " шаг\n";
+
+        // показываем новые полные
+        for (int i = 0; i < groups; i++)
+            cout << "1 ";
+        cout << endl;
+
+        total += groups;
+        empty = empty - used + groups;
+
+        steps++;
+        cout << steps << " шаг\n";
     }
 
     cout << "\nРезультат:\n";
